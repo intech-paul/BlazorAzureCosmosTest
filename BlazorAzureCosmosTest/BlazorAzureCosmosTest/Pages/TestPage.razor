@@ -1,0 +1,42 @@
+﻿@page "/testpage"
+
+<h3>TestPage</h3>
+
+<li>Error=@error</li>
+<li>Connection=@constring</li>
+@message
+<li></li>
+
+<button class="btn btn-primary" @onclick="DoThis">Test API Call</button>
+
+<li></li>
+<li></li>
+Open the chrome debugger then click Test Api Call
+
+@code {
+    string error="";
+    string constring;
+    string message;
+
+
+
+
+    async Task DoThis()
+    {
+        try
+        {
+            Console.WriteLine("Hello");
+
+            TableApi t = new TableApi();
+            t.GetConnectionString();
+            constring = t.constring;
+            await t.GetTable();
+
+            error = "Replied OK";
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+}
